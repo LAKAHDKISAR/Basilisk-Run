@@ -8,10 +8,10 @@ class Canvas:
         self._canvas = tk.Canvas(self.root, width=width, height=height)
         self._canvas.pack()
         
-        self._images = {}  # keep references to images to avoid GC
+        self._images = {}  
         self._hidden = set()
         
-        # Store clicks and keys for helper methods
+        
         self._last_click = None
         self._new_clicks = []
         self._new_keys = []
@@ -21,7 +21,7 @@ class Canvas:
         
         self._canvas.focus_set()
         
-    # --- Create shapes ---
+    # --- create shapes ---
     
     def create_rectangle(self, left_x, top_y, right_x, bottom_y, color=None, outline=None):
         return self._canvas.create_rectangle(
@@ -179,7 +179,7 @@ class Canvas:
             self._canvas.update()
         return self._last_click
     
-    # --- Internal event handlers ---
+    # ---------------------
     
     def _on_click(self, event):
         click = {'x': event.x, 'y': event.y}
@@ -189,7 +189,7 @@ class Canvas:
     def _on_key_press(self, event):
         self._new_keys.append(event.keysym)
     
-    # --- To run the tkinter main loop ---
+    # run tkinter main loop
     
     def run(self):
         self.root.mainloop()

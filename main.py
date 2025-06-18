@@ -1,6 +1,6 @@
 from graphics import Canvas
 import random
-import pygame #sound
+import pygame
 
 CANVAS_WIDTH = 400
 CANVAS_HEIGHT = 400
@@ -64,7 +64,7 @@ def main():
         if not game_start and event.keysym == 'Return':
             game_start = True
             canvas.delete(start_text)
-            background.play(loops=-1)  # loop background music
+            background.play(loops=-1) 
             game_loop()
 
         if not game_over:
@@ -98,7 +98,7 @@ def main():
         x = canvas.get_left_x(player)
         y = canvas.get_top_y(player)
 
-        # boundaries
+        # boundary
         if x < 0 or x >= CANVAS_WIDTH or y < 0 or y >= CANVAS_HEIGHT:
             out.play()
             background.stop()
