@@ -76,6 +76,6 @@ This project is licensed under the MIT License.
 
 ## Acknowledgements
 
-The graphics.py library is inspired by the Code in Place project.
-Sound effects were sourced from Freesound.org under appropriate licenses — thank you to the creators for making these available.
+- The graphics.py library is inspired by the Code in Place project.
+- Sound effects were sourced from Freesound.org under appropriate licenses. Thank you to the creators for making these available.
 
