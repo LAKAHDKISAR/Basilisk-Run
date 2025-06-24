@@ -1,6 +1,7 @@
 from graphics import Canvas
 import random
 import pygame
+import time
 
 CANVAS_WIDTH = 400
 CANVAS_HEIGHT = 400
@@ -27,7 +28,7 @@ def main():
     game_over_text2 = None
 
     score_display = canvas.create_text(CANVAS_WIDTH // 2, 10, f"Points: {score}", font='Arial', font_size=15, color='black', anchor='n')
-    start_text = canvas.create_text(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2, text="Press Enter to Start", font="Arial", font_size=20, color="darkgreen", anchor="center")
+    start_text = canvas.create_text(CANVAS_WIDTH // 2, CANVAS_HEIGHT // 2, text="Press Enter to Start", font="Arial", font_size=20, color="black", anchor="center")
 
 
     # sound
@@ -56,16 +57,30 @@ def main():
         canvas.delete(score_display)
         score_display = canvas.create_text(CANVAS_WIDTH // 2, 10, f"Points: {score}", font='Arial', font_size=15, color='black', anchor='n')
 
+    #-------------------------
+
+    def countdown(seconds):          # 24 june added countdown
+        nonlocal start_text
+        if seconds == 0: 
+            canvas.delete(start_text) # will first delete countdown start_text canvas
+            background.play(loops=-1) # then play background song for infinity loop=-1
+            game_loop()         # then call the game loop
+        else:
+            canvas.change_text(start_text, str(seconds))   # change_text will change the existing object start_text to show new text, and making vising by str(seconds)
+            canvas._canvas.after(1000, next_countdown, seconds-1)  # using after function, each 1000 millisecond/1 second (n -1). 
+
+   
+    def next_countdown(seconds):  # next_countdown will call itself until countdown is 0
+        countdown(seconds)
+
 
 
     def on_key(event):
         nonlocal move, game_over, game_start
 
         if not game_start and event.keysym == 'Return':
-            game_start = True
-            canvas.delete(start_text)
-            background.play(loops=-1) 
-            game_loop()
+            game_start = True           
+            countdown(3)         # 3 seconds passed
 
         if not game_over:
             if event.keysym in ['Left', 'Right', 'Up', 'Down']:
@@ -80,6 +95,9 @@ def main():
     canvas._canvas.bind("<Key>", on_key)
     canvas._canvas.focus_set()
 
+
+
+    #--------------
     def game_loop():
         nonlocal move, delay, score, score_display, game_over, game_over_text1, game_over_text2
 
